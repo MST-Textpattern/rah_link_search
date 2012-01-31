@@ -1,0 +1,53 @@
+h1. rah_link_search
+
+p. Set up a simple frontend link search. Search query matches needle to link's name, description and url, and returns results.
+
+* Version: 0.1
+* Updated: 2009/03/25 7:00 AM GMT+2
+
+h3. Table of Contents
+
+* "List of features":#list-of-features
+* "Requirements":#requirements
+* "Installation and usage":#installation-and-usage
+* "Attributes":#attributes
+* "Examples":#examples
+
+h3(#list-of-features). List of features
+
+* Style search results with Textpattern's link forms.
+* A simple tag, @<txp:rah_link_search />@. The tag shows search results.
+* The search works with the stannard core @?q@-GET search. Core conditionals and forms can work too, including @<txp:if_search />@.
+
+h3(#requirements). Requirements
+
+* PHP 4.3.0+
+* Textpattern 4.x.x+
+
+h3(#installation-and-usage). Installation and usage
+
+p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. Then just activate the plugin and you are ready to use new tags that plugin includes like others.
+
+p. For usage, basically use @<txp:rah_link_search />@ to display the search results. Works kinda identically as @<txp:article />@.
+
+h3(#attributes). Attributes
+
+p. The tag is @<txp:rah_link_search />@ and attributes for it follow.
+
+p. *form*
+Textpattern's link form used to display search results.
+Example: @form="linkform"@ Default: @"plainlinks"@
+
+h3(#examples). Examples
+
+p. *Example #1:* Outputs search results and form.
+
+bc. <txp:search_input />
+<txp:rah_link_search />
+
+p. *Example #2:* Used as a container tag.
+
+bc. <txp:rah_link_search>
+	<h3><txp:link /></h3>
+	<p><txp:link_description /></p>
+</txp:rah_link_search>
