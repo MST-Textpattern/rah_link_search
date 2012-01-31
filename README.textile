@@ -2,36 +2,23 @@ h1. rah_link_search
 
 p. Extends "Textpattern's":http://textpattern.com search to links.
 
-* Version: 0.4
-* Updated: 2012/01/29 10:30 AM UTC
-
-h3. Table of Contents
-
-* "List of features":#list-of-features
-* "Requirements":#requirements
-* "Installation and usage":#installation-and-usage
-* "Attributes":#attributes
-* "Examples":#examples
-* "Changelog":#changelog
-
-h3(#list-of-features). List of features
+h2. List of features
 
 * Search results are customizable with Textpattern's link forms.
 * A simple tag, @<txp:rah_link_search />@. The tag shows search results.
 * The search works with the standard core @?q@ HTTP GET search. Core conditionals and forms can work too, including @<txp:if_search />@.
 
-h3(#requirements). Requirements
+h2. Requirements
 
-* PHP 4.3.0+
 * Textpattern 4.3.0+
 
-h3(#installation-and-usage). Installation and usage
+h2. Installation and usage
 
 p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. When done, just activate the plugin and you are ready to use the new tag, @<txp:rah_link_search />@.
 
 p. You can now use @<txp:rah_link_search />@ to display links on your search results page. It works same as @<txp:article />@ would.
 
-h3(#attributes). Attributes
+h2. Attributes
 
 p. The tag is @<txp:rah_link_search />@ and attributes for it follow.
 
@@ -55,39 +42,41 @@ p. *grand_total*
 Omit setting result count. If the attribute is set to @"0"@ (zero), "search_result_count":http://textpattern.net/wiki/index.php?title=search_result_count won't be updated with the number of results. This attribute could be helpful if rah_link_search is used in conjunction with "article":http://textpattern.net/wiki/index.php?title=article tags, as article tags won't update the count once it's already set.
 Default: @grand_total="1"@ Example: @"0"@.
 
-h3(#examples). Examples
+h2. Examples
 
-p. *Example #1:* Outputs search results (if any) and the search form.
+h3. Simple usage
+
+p. Outputs list of search results (if any) and a search form.
 
 bc. <txp:search_input />
 <txp:rah_link_search />
 
-p. *Example #2:* Used as a container tag.
+h3. Using as a container tag
 
 bc. <txp:rah_link_search>
 	<h3><txp:link /></h3>
 	<p><txp:link_description /></p>
 </txp:rah_link_search>
 
-h3(#changelog). Changelog
+h2. Changelog
 
-p. *Version 0.4*
+h3. Version 0.4 - 2012/01/29
 
 * Word mathcing is now identical with "rah_file_search":http://rahforum.biz/plugins/rah_file_search. Entries are matched for all searched words, not for any.
 * In a container mode empty string is accepted as a wrapped content. Form isn't fetched even when nothing is wrapped, as long as the tag is used as a container.
 
-p. *Version 0.3*
+h3. Version 0.3 - 2011/03/24
 
 * Searches are case-insensitive.
 * Searches can match multiple words.
 
-p. *Version 0.2*
+h3. Version 0.2 - 2011/02/24
 
 * Added new attributes: @grand_total@, @wraptag@, @class@ and @break@.
 * Changed the matching syntax.
 * Fixed query escaping.
 * Now requires Textpattern version 4.3.0 or newer.
 
-p. *Version 0.1*
+h3. Version 0.1 - 2009/03/25
 
 * Initial release.
