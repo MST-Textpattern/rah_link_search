@@ -1,15 +1,15 @@
 <?php	##################
 	#
 	#	rah_link_search-plugin for Textpattern
-	#	version 0.3
+	#	version 0.4
 	#	by Jukka Svahn
 	#	http://rahforum.biz
 	#
+	#	Copyright (C) 2012 Jukka Svahn <http://rahforum.biz>
+	#	Licensed under GNU Genral Public License version 2
+	#	http://www.gnu.org/licenses/gpl-2.0.html
+	#
 	###################
-
-/**
-	The tag. Returns the list of matching links.
-*/
 
 	function rah_link_search($atts, $thing = NULL) {
 		
@@ -29,27 +29,10 @@
 		if(empty($pretext['q']))
 			return;
 		
-		/*
-			We are an article tag,
-			well kinda.
-		*/
-		
 		$has_article_tag = true;
-		$q = $pretext['q'];
-		
-		/*
-			Quotes should be stripped
-			from quote surrounded string
-		*/
-		
-		$q = trim($q);
+		$q = trim($pretext['q']);
 		$quoted = ($q[0] === '"') && ($q[strlen($q)-1] === '"');
 		$q = doSlash($quoted ? trim(trim($q, '"')) : $q);
-		
-		/*
-			Clean whitespace and escape the
-			special syntax MySQL's like operator uses
-		*/
 		
 		$q = 
 			preg_replace('/\s+/', ' ', 
@@ -60,10 +43,6 @@
 				)
 			);
 		
-		/*
-			Searchable fields
-		*/
-		
 		$fields =
 			array(
 				'linkname',
@@ -71,34 +50,27 @@
 				'url'
 			);
 		
-		/*
-			If quoted
-		*/
-		
 		if($quoted)
 			foreach($fields as $field)
 				$sql[] = "lower($field) like lower('%$q%')";
 		else {
-			
-			/*
-				Go thru the words
-			*/
-			
 			$words = explode(' ', $q);
-			foreach($fields as $field)
-				foreach($words as $word)
-					$sql[] = "lower($field) like lower('%$word%')";
+
+			foreach($words as $word) {
+				$fsql = array();
+				
+				foreach($fields as $field)
+					$fsql[] = "lower($field) like lower('%$word%')";
+				
+				$sql[] = '('.implode(' or ', $fsql).')';
+			}
 		}
-		
-		/*
-			Get matching rows
-		*/
-		
+
 		$rs = 
 			safe_rows(
 				'*, unix_timestamp(date) as uDate',
 				'txp_link',
-				implode(' or ',$sql)
+				implode(($quoted ? ' or ' : ' and '), $sql)
 			);
 		
 		if(!$rs)
@@ -107,7 +79,7 @@
 		if($grand_total == 1)
 			$thispage['grand_total'] = count($rs);
 			
-		if(!$thing)
+		if($thing === NULL)
 			$thing = fetch_form($form);
 		
 		$out = array();
@@ -128,7 +100,7 @@
 			$out[] = parse($thing);
 			$thislink = '';
 		}
-		
+
 		return doWrap($out, $wraptag, $break, $class);
 	}
 ?>

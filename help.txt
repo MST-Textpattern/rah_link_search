@@ -1,9 +1,9 @@
 h1. rah_link_search
 
-p. Extend "Textpattern's":http://textpattern.com search to links.
+p. Extends "Textpattern's":http://textpattern.com search to links.
 
-* Version: 0.3
-* Updated: 2011/03/24 3:25 AM UTC
+* Version: 0.4
+* Updated: 2012/01/29 10:30 AM UTC
 
 h3. Table of Contents
 
@@ -18,7 +18,7 @@ h3(#list-of-features). List of features
 
 * Search results are customizable with Textpattern's link forms.
 * A simple tag, @<txp:rah_link_search />@. The tag shows search results.
-* The search works with the stannard core @?q@-GET search. Core conditionals and forms can work too, including @<txp:if_search />@.
+* The search works with the standard core @?q@ HTTP GET search. Core conditionals and forms can work too, including @<txp:if_search />@.
 
 h3(#requirements). Requirements
 
@@ -29,7 +29,7 @@ h3(#installation-and-usage). Installation and usage
 
 p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. When done, just activate the plugin and you are ready to use the new tag, @<txp:rah_link_search />@.
 
-p. For usage, basically use @<txp:rah_link_search />@ to display the search results. Works as @<txp:article />@ would.
+p. You can now use @<txp:rah_link_search />@ to display links on your search results page. It works same as @<txp:article />@ would.
 
 h3(#attributes). Attributes
 
@@ -70,6 +70,11 @@ bc. <txp:rah_link_search>
 </txp:rah_link_search>
 
 h3(#changelog). Changelog
+
+p. *Version 0.4*
+
+* Word mathcing is now identical with "rah_file_search":http://rahforum.biz/plugins/rah_file_search. Entries are matched for all searched words, not for any.
+* In a container mode empty string is accepted as a wrapped content. Form isn't fetched even when nothing is wrapped, as long as the tag is used as a container.
 
 p. *Version 0.3*
 
