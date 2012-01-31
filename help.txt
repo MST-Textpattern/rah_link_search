@@ -1,9 +1,9 @@
 h1. rah_link_search
 
-p. Set up a simple frontend link search. Search query matches needle to link's name, description and url, and returns results.
+p. Extend "Textpattern's":http://textpattern.com search to links.
 
-* Version: 0.1
-* Updated: 2009/03/25 7:00 AM GMT+2
+* Version: 0.2
+* Updated: 2011/02/24 10:15 AM UTC
 
 h3. Table of Contents
 
@@ -12,23 +12,24 @@ h3. Table of Contents
 * "Installation and usage":#installation-and-usage
 * "Attributes":#attributes
 * "Examples":#examples
+* "Changelog":#changelog
 
 h3(#list-of-features). List of features
 
-* Style search results with Textpattern's link forms.
+* Search results are customizable with Textpattern's link forms.
 * A simple tag, @<txp:rah_link_search />@. The tag shows search results.
 * The search works with the stannard core @?q@-GET search. Core conditionals and forms can work too, including @<txp:if_search />@.
 
 h3(#requirements). Requirements
 
 * PHP 4.3.0+
-* Textpattern 4.x.x+
+* Textpattern 4.3.0+
 
 h3(#installation-and-usage). Installation and usage
 
-p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. Then just activate the plugin and you are ready to use new tags that plugin includes like others.
+p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. When done, just activate the plugin and you are ready to use the new tag, @<txp:rah_link_search />@.
 
-p. For usage, basically use @<txp:rah_link_search />@ to display the search results. Works kinda identically as @<txp:article />@.
+p. For usage, basically use @<txp:rah_link_search />@ to display the search results. Works as @<txp:article />@ would.
 
 h3(#attributes). Attributes
 
@@ -38,9 +39,25 @@ p. *form*
 Textpattern's link form used to display search results.
 Example: @form="linkform"@ Default: @"plainlinks"@
 
+p. *wraptag*
+The (X)HTML tag, without brackets used to wrap the output. Default is unset.
+Default: @wraptag=""@ Example: @"div"@
+
+p. *break*
+The (X)HTML tag (without brackets) or string to separate list items. Default is unset.
+Default: @break=""@ Example: @"br"@
+
+p. *class*
+The (X)HTML class applied to the wraptag. Default is unset.
+Default: @class=""@ Example: @"plugin"@
+
+p. *grand_total*
+Omit setting result count. If the attribute is set to @"0"@ (zero), "search_result_count":http://textpattern.net/wiki/index.php?title=search_result_count won't be updated with the number of results. This attribute could be helpful if rah_link_search is used in conjunction with "article":http://textpattern.net/wiki/index.php?title=article tags, as article tags won't update the count once it's already set.
+Default: @grand_total="1"@ Example: @"0"@.
+
 h3(#examples). Examples
 
-p. *Example #1:* Outputs search results and form.
+p. *Example #1:* Outputs search results (if any) and the search form.
 
 bc. <txp:search_input />
 <txp:rah_link_search />
@@ -51,3 +68,16 @@ bc. <txp:rah_link_search>
 	<h3><txp:link /></h3>
 	<p><txp:link_description /></p>
 </txp:rah_link_search>
+
+h3(#changelog). Changelog
+
+p. *Version 0.2*
+
+* Added new attributes: @grand_total@, @wraptag@, @class@ and @break@.
+* Changed the matching syntax.
+* Fixed query escaping.
+* Now requires Textpattern version 4.3.0 or newer.
+
+p. *Version 0.1*
+
+* Initial release.
