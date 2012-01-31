@@ -1,7 +1,7 @@
 <?php	##################
 	#
 	#	rah_link_search-plugin for Textpattern
-	#	version 0.2
+	#	version 0.3
 	#	by Jukka Svahn
 	#	http://rahforum.biz
 	#
@@ -42,6 +42,7 @@
 			from quote surrounded string
 		*/
 		
+		$q = trim($q);
 		$quoted = ($q[0] === '"') && ($q[strlen($q)-1] === '"');
 		$q = doSlash($quoted ? trim(trim($q, '"')) : $q);
 		
@@ -60,14 +61,44 @@
 			);
 		
 		/*
-			Get matching IDs
+			Searchable fields
+		*/
+		
+		$fields =
+			array(
+				'linkname',
+				'description',
+				'url'
+			);
+		
+		/*
+			If quoted
+		*/
+		
+		if($quoted)
+			foreach($fields as $field)
+				$sql[] = "lower($field) like lower('%$q%')";
+		else {
+			
+			/*
+				Go thru the words
+			*/
+			
+			$words = explode(' ', $q);
+			foreach($fields as $field)
+				foreach($words as $word)
+					$sql[] = "lower($field) like lower('%$word%')";
+		}
+		
+		/*
+			Get matching rows
 		*/
 		
 		$rs = 
 			safe_rows(
 				'*, unix_timestamp(date) as uDate',
 				'txp_link',
-				"linkname like '%$q%' or description like '%$q%' or url like '%$q%'"
+				implode(' or ',$sql)
 			);
 		
 		if(!$rs)

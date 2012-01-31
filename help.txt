@@ -2,8 +2,8 @@ h1. rah_link_search
 
 p. Extend "Textpattern's":http://textpattern.com search to links.
 
-* Version: 0.2
-* Updated: 2011/02/24 10:15 AM UTC
+* Version: 0.3
+* Updated: 2011/03/24 3:25 AM UTC
 
 h3. Table of Contents
 
@@ -70,6 +70,11 @@ bc. <txp:rah_link_search>
 </txp:rah_link_search>
 
 h3(#changelog). Changelog
+
+p. *Version 0.3*
+
+* Searches are case-insensitive.
+* Searches can match multiple words.
 
 p. *Version 0.2*
 
