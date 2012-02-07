@@ -10,7 +10,7 @@ h2. List of features
 
 h2. Requirements
 
-* Textpattern 4.3.0+
+* Textpattern "r3586":http://code.google.com/p/textpattern/source/detail?r=3586 (i.e. 4.5.0).
 
 h2. Installation and usage
 
@@ -18,25 +18,9 @@ p. The general behavior stands: paste plugin code to the plugin installer textar
 
 p. You can now use @<txp:rah_link_search />@ to display links on your search results page. It works same as @<txp:article />@ would.
 
-h2. Attributes
+h2. The tag and attributes
 
-p. The tag is @<txp:rah_link_search />@ and attributes for it follow.
-
-p. *form*
-Textpattern's link form used to display search results.
-Example: @form="linkform"@ Default: @"plainlinks"@
-
-p. *wraptag*
-The (X)HTML tag, without brackets used to wrap the output. Default is unset.
-Default: @wraptag=""@ Example: @"div"@
-
-p. *break*
-The (X)HTML tag (without brackets) or string to separate list items. Default is unset.
-Default: @break=""@ Example: @"br"@
-
-p. *class*
-The (X)HTML class applied to the wraptag. Default is unset.
-Default: @class=""@ Example: @"plugin"@
+p. The tag is @<txp:rah_link_search />@. It has the same attributes as @<txp:linklist />@ tag (and one additional). See "linklist":http://textpattern.net/wiki/index.php?title=linklist for the list of attributes. In addition to, the tag has one extra attribute, @grand_total@:
 
 p. *grand_total*
 Omit setting result count. If the attribute is set to @"0"@ (zero), "search_result_count":http://textpattern.net/wiki/index.php?title=search_result_count won't be updated with the number of results. This attribute could be helpful if rah_link_search is used in conjunction with "article":http://textpattern.net/wiki/index.php?title=article tags, as article tags won't update the count once it's already set.
@@ -59,6 +43,11 @@ bc. <txp:rah_link_search>
 </txp:rah_link_search>
 
 h2. Changelog
+
+h3. Version 0.5 - upcoming (when TXP v4.5.0 launches)
+
+* Now supports all features core's "linklist":http://textpattern.net/wiki/index.php?title=linklist has.
+* Now requires "r3586":http://code.google.com/p/textpattern/source/detail?r=3586 or newer.
 
 h3. Version 0.4 - 2012/01/29
 

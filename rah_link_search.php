@@ -13,17 +13,11 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-	function rah_link_search($atts, $thing = NULL) {
+	function rah_link_search($atts, $thing=NULL) {
 		
-		extract(lAtts(array(
-			'form' => 'plainlinks',
-			'grand_total' => 1,
-			'wraptag' => '',
-			'break' => '',
-			'class' => ''
-		),$atts));
+		global $pretext, $has_article_tag, $thispage;
 		
-		global $pretext, $has_article_tag, $thispage, $thislink;
+		$grand_total = isset($atts['grand_total']) ? $atts['grand_total'] : 1;
 		
 		if($grand_total == 1)
 			$thispage['grand_total'] = 0;
@@ -52,9 +46,11 @@
 				'url'
 			);
 		
-		if($quoted)
+		if($quoted) {
 			foreach($fields as $field)
 				$sql[] = "lower($field) like lower('%$q%')";
+		}
+		
 		else {
 			$words = explode(' ', $q);
 
@@ -69,10 +65,10 @@
 		}
 
 		$rs = 
-			safe_rows(
-				'*, unix_timestamp(date) as uDate',
+			safe_column(
+				'id',
 				'txp_link',
-				implode(($quoted ? ' or ' : ' and '), $sql)
+				implode($quoted ? ' or ' : ' and ', $sql)
 			);
 		
 		if(!$rs)
@@ -80,29 +76,10 @@
 		
 		if($grand_total == 1)
 			$thispage['grand_total'] = count($rs);
-			
-		if($thing === NULL)
-			$thing = fetch_form($form);
 		
-		$out = array();
+		$atts['id'] = implode(',', $rs);
+		unset($atts['grand_total']);
 		
-		foreach($rs as $a) {
-			extract($a);
-			$thislink = 
-				array(
-					'id' => $id,
-					'linkname' => $linkname,
-					'url' => $url,
-					'description' => $description,
-					'date' => $uDate,
-					'category' => $category,
-					'author' => $author
-				)
-			;
-			$out[] = parse($thing);
-			$thislink = '';
-		}
-
-		return doWrap($out, $wraptag, $break, $class);
+		return linklist($atts, $thing);
 	}
 ?>
